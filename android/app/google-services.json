@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "907238030341",
+    "project_id": "ponder-v2",
+    "storage_bucket": "ponder-v2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907238030341:android:36756752ffd91db9cd706c",
+        "android_client_info": {
+          "package_name": "com.example.ponderv2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzlhKLVLEKs-JJhZkLbBXTzHhe01UJJHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
