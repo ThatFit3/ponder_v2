@@ -58,7 +58,10 @@ class RootPageState extends State<RootPage> {
                       MaterialPageRoute(builder: (context) => AddPage()),
                     );
                   },
-                  child: Icon(Icons.add),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                 ),
                 bottomNavigationBar: BottomAppBar(
                   color: const Color.fromARGB(255, 166, 227, 233),

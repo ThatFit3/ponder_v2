@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<String> keys = [];
   bool isLoading = true;
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -21,11 +22,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> loadKeysFromFirestore() async {
-    final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final doc = await FirebaseFirestore.instance
           .collection('users')
-          .doc(user.uid)
+          .doc(user?.uid)
           .get();
 
       final data = doc.data();
@@ -75,7 +75,16 @@ class _HomePageState extends State<HomePage> {
 
                   return (e == "New"
                       ? (emptyCard())
-                      : (MonitoringCard(apiKey: e, boxSize: size)));
+                      : (MonitoringCard(
+                          apiKey: e,
+                          boxSize: size,
+                          userId: user!.uid,
+                          onDelete: () {
+                            setState(() {
+                              keys.remove(e); // remove from local state
+                            });
+                          },
+                        )));
                 },
               );
             },

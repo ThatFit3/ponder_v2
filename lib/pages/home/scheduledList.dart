@@ -89,14 +89,43 @@ class _ScheduledListState extends State<ScheduledList> {
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Scheduled Times",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Auto Feeder",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 131, 184, 189),
+                        iconColor: Colors.white,
+                      ),
+                      onPressed: () async {
+                        final updated = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                AddTime(sensorId: widget.sensorId),
+                          ),
+                        );
+
+                        if (updated == true) {
+                          fetchScheduledTimes(); // refresh the list
+                        }
+                      },
+                      icon: const Icon(Icons.add),
+                      label: const Text(
+                        "Add",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 10),
-                if (scheduledTimes.isEmpty)
-                  const Text("No scheduled times found.")
-                else
+                if (scheduledTimes.isNotEmpty)
                   ...scheduledTimes.map((time) => Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: Row(
@@ -118,27 +147,6 @@ class _ScheduledListState extends State<ScheduledList> {
                           ],
                         ),
                       )),
-                const SizedBox(height: 15),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton.icon(
-                    onPressed: () async {
-                      final updated = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              AddTime(sensorId: widget.sensorId),
-                        ),
-                      );
-
-                      if (updated == true) {
-                        fetchScheduledTimes(); // refresh the list
-                      }
-                    },
-                    icon: const Icon(Icons.edit),
-                    label: const Text("Add Schedule"),
-                  ),
-                ),
               ],
             ),
     );
